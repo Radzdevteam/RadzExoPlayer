@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.radzdev.radzexoplayer
 
 import android.annotation.SuppressLint
@@ -13,6 +11,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
@@ -37,6 +36,7 @@ class ExoPlayerManager : AppCompatActivity() {
     private lateinit var forwardButton: ImageView
     private lateinit var backwardButton: ImageView
     private lateinit var onBackPressLayout: LinearLayout
+    private lateinit var titleTextView: TextView
     private var isPlayerLocked = false
 
     @SuppressLint("InflateParams", "PrivateResource", "MissingInflatedId")
@@ -62,12 +62,12 @@ class ExoPlayerManager : AppCompatActivity() {
         exoplayerResize = playerView.findViewById(R.id.screen_resize)
         playPauseButton = playerView.findViewById(R.id.exo_play_pause)
         audioDetails = playerView.findViewById(R.id.exo_audio_details)
-       //  playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
         rotateButton = playerView.findViewById(R.id.rotateButton)
         lockButton = playerView.findViewById(R.id.lockButton)
         forwardButton = playerView.findViewById(R.id.fwd)
         backwardButton = playerView.findViewById(R.id.rew)
         onBackPressLayout = findViewById(R.id.OnBackPress)
+        titleTextView = playerView.findViewById(R.id.exo_title)
 
         onBackPressLayout.setOnClickListener {
             finish()
@@ -113,8 +113,10 @@ class ExoPlayerManager : AppCompatActivity() {
             exoPlayer.seekTo(max(0, currentPosition - 10000))
         }
 
-
         val mediaUrl = intent.getStringExtra("videoUrl")!!
+        val customTitle = intent.getStringExtra("customTitle")!!
+
+        titleTextView.text = customTitle
 
         val renderersFactory = DefaultRenderersFactory(this)
             .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
@@ -161,7 +163,6 @@ class ExoPlayerManager : AppCompatActivity() {
             }
         }
 
-
         setupControls()
 
         exoplayerResize.setOnClickListener {
@@ -185,7 +186,6 @@ class ExoPlayerManager : AppCompatActivity() {
             }
             playerView.resizeMode = nextResizeMode
         }
-
     }
 
     private fun showToastMessage(message: String) {
@@ -236,5 +236,4 @@ class ExoPlayerManager : AppCompatActivity() {
         super.onDestroy()
         exoPlayer.release()
     }
-
 }
