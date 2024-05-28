@@ -3,6 +3,14 @@
 
 Radz ExoPlayer is a media player library developed by Radz, leveraging the powerful ExoPlayer framework.
 
+## Player Supported Formats:
+- HLS (HTTP Live Streaming)
+- M3U8
+- MP4
+- TS
+- DASH (Dynamic Adaptive Streaming over HTTP)
+- TLS (Transport Layer Security)
+
 ## How to Include
 ### Step 1. Add the repository to your project settings.gradle:
 ```groovy
@@ -55,11 +63,3 @@ class MainActivity : AppCompatActivity() {
 }
 
    ```
-
-## Player Supported Formats:
-- HLS (HTTP Live Streaming)
-- M3U8
-- MP4
-- TS
-- DASH (Dynamic Adaptive Streaming over HTTP)
-- TLS (Transport Layer Security)
