@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <activity android:name=".ExoPlayerManager"
+        tools:ignore="WrongManifestParent"
+        android:configChanges="orientation|keyboardHidden|screenSize">
+    </activity>
+
 
 </manifest>
