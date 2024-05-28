@@ -55,3 +55,11 @@ class MainActivity : AppCompatActivity() {
 }
 
    ```
+
+## Player Supported Formats:
+- HLS (HTTP Live Streaming)
+- M3U8
+- MP4
+- TS
+- DASH (Dynamic Adaptive Streaming over HTTP)
+- TLS (Transport Layer Security)
