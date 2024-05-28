@@ -3,5 +3,6 @@
     <string name="rotation">Rotation</string>
     <string name="audio">Audio</string>
     <string name="speed">Speed</string>
-    <string name="back">Back</string>
+    <string name="back">GO BACK</string>
+    <string name="media3_by_radz">Media3 by Radz</string>
 </resources>

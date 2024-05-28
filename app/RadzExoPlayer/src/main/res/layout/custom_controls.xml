@@ -33,6 +33,14 @@
                 android:textStyle="bold"
                 android:text="@string/back"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:text="@string/media3_by_radz"/>
+
         </LinearLayout>
 
         <LinearLayout
