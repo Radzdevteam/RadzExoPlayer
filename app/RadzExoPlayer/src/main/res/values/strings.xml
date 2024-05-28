@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rotation">Rotation</string>
+    <string name="audio">Audio</string>
+    <string name="speed">Speed</string>
+    <string name="back">Back</string>
+</resources>
