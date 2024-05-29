@@ -59,10 +59,7 @@ class ExoPlayerManager : AppCompatActivity() {
 
         setContentView(R.layout.activity_exo_player_manager)
 
-        //  playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-        val initialResizeMode = intent.getIntExtra("initialResizeMode", AspectRatioFrameLayout.RESIZE_MODE_ZOOM)
-        playerView.resizeMode = initialResizeMode
-
+        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
 
         playerView = findViewById(R.id.player_view)
         btnSpeed = playerView.findViewById(R.id.exo_playback_speed)
