@@ -58,10 +58,8 @@ class ExoPlayerManager : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_exo_player_manager)
-
-        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-
         playerView = findViewById(R.id.player_view)
+        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
         btnSpeed = playerView.findViewById(R.id.exo_playback_speed)
         exoplayerResize = playerView.findViewById(R.id.screen_resize)
         playPauseButton = playerView.findViewById(R.id.exo_play_pause)
