@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 ### Step 2. Add the dependency
 ```groovy
 dependencies {
-     implementation ("com.github.Radzdevteam:RadzExoPlayer:tag")
+     implementation ("com.github.Radzdevteam:RadzExoPlayer:2.1")
 }
 
    ```
@@ -37,36 +37,30 @@ dependencies {
 In your `MainActivity`, add the following code:
 ```groovy
 "videoUrl"
-"customTitle"
+"subtitleUrl"
 
    ```
 
 Example
 ```groovy
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        startExoPlayerManager()
-    }
 
-    private fun startExoPlayerManager() {
-        val videoUrl = "http://122.55.252.134:8443/live/bba5b536faeacb9b56a3239f1ee8e3b3/1.m3u8"
-        val customTitle = "Test 123"
+        // Replace with your actual video URL and subtitle URL
+        val videoUrl = "https://tralvoxmoon.xyz/file2/620jcDsH1AgYqsBfX9I++Q570Jo2OYVIp0zDZDaiW4SM5ptDF5BC7b2BQO~AfcP31CC4cong5TH6yaXnWdYeXG4+Evwb2WKD3R9~4Eb7C+x4BL8CUQ7mL1Z+a7TzeOa3QtCeqaX0aR4fQNV0RA1r~vkABGBq4a8Nf2BKaP8VruA=/cGxheWxpc3QubTN1OA==.m3u8"
+        val subtitleUrl = "https://cca.megafiles.store/25/fa/25facaa955b601a0eaba00ac838db1b1/eng-2.vtt"
 
-        val intent = Intent(this, ExoPlayerManager::class.java)
-        intent.putExtra("videoUrl", videoUrl)
-        intent.putExtra("customTitle", customTitle)
+        // Create the intent to start ExoPlayerManager
+        val intent = Intent(this, ExoPlayerManager::class.java).apply {
+            putExtra("videoUrl", videoUrl)
+            putExtra("subtitleUrl", subtitleUrl) // Optional, can be null if no subtitle
+        }
+
         startActivity(intent)
+
+        finish()
     }
 }
 
-   ```
-
-## Manifest
-In your `AndroidManifest`, add the following code:
-```groovy
- <activity android:name="com.radzdev.radzexoplayer.ExoPlayerManager"
- android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"/>
    ```

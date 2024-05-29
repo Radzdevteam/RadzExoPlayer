@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -15,17 +16,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.media3.common.Format
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import androidx.media3.exoplayer.DefaultRenderersFactory
 import kotlin.math.max
 
-class ExoPlayerManager : AppCompatActivity() {
+class ExoPlayerManager : ComponentActivity() {
 
     private lateinit var playerView: PlayerView
     private lateinit var exoPlayer: ExoPlayer
@@ -38,13 +40,16 @@ class ExoPlayerManager : AppCompatActivity() {
     private lateinit var forwardButton: ImageView
     private lateinit var backwardButton: ImageView
     private lateinit var onBackPressLayout: LinearLayout
-    private lateinit var titleTextView: TextView
     private var isPlayerLocked = false
 
+    @Override
     @SuppressLint("InflateParams", "PrivateResource", "MissingInflatedId")
     @UnstableApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the ExoPlayer before using it
+        exoPlayer = ExoPlayer.Builder(this).build()
 
         window?.requestFeature(Window.FEATURE_NO_TITLE)
         window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -52,14 +57,12 @@ class ExoPlayerManager : AppCompatActivity() {
         window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            window?.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-            window?.attributes?.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-        }
-
         setContentView(R.layout.activity_exo_player_manager)
         playerView = findViewById(R.id.player_view)
-        //playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+
+        playerView.player = exoPlayer // Assign exoPlayer to the PlayerView
+
+        // Initialize UI elements
         btnSpeed = playerView.findViewById(R.id.exo_playback_speed)
         exoplayerResize = playerView.findViewById(R.id.screen_resize)
         playPauseButton = playerView.findViewById(R.id.exo_play_pause)
@@ -69,8 +72,8 @@ class ExoPlayerManager : AppCompatActivity() {
         forwardButton = playerView.findViewById(R.id.fwd)
         backwardButton = playerView.findViewById(R.id.rew)
         onBackPressLayout = findViewById(R.id.OnBackPress)
-        titleTextView = playerView.findViewById(R.id.exo_title)
 
+        // Handle UI actions and controls
         onBackPressLayout.setOnClickListener {
             finish()
         }
@@ -116,19 +119,31 @@ class ExoPlayerManager : AppCompatActivity() {
         }
 
         val mediaUrl = intent.getStringExtra("videoUrl")!!
-        val customTitle = intent.getStringExtra("customTitle")!!
+        val subtitleUrl = intent.getStringExtra("subtitleUrl")
 
-        titleTextView.text = customTitle
+// Check if subtitle URL exists and add it to the player
+        val mediaItemBuilder = MediaItem.Builder().setUri(mediaUrl)
 
-        val renderersFactory = DefaultRenderersFactory(this)
-            .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
-        exoPlayer = ExoPlayer.Builder(this, renderersFactory).build()
-        playerView.player = exoPlayer
+        if (!subtitleUrl.isNullOrEmpty()) {
+            val subtitleUri = Uri.parse(subtitleUrl)
+            val subtitleTrack = MediaItem.Subtitle(
+                subtitleUri, MimeTypes.TEXT_VTT, null
+            )
+            mediaItemBuilder.setSubtitles(listOf(subtitleTrack))
+          //  showToastMessage("Subtitles are available.")
+        } else {
+          //  showToastMessage("No subtitles available for this video.")
+        }
 
-        val mediaItem = MediaItem.fromUri(mediaUrl)
+
+        val mediaItem = mediaItemBuilder.build()
+
+        // Set mediaItem to exoPlayer
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
         exoPlayer.playWhenReady = true
+
+
 
         audioDetails.setOnClickListener {
             val audioFormat = exoPlayer.audioFormat
@@ -147,7 +162,6 @@ class ExoPlayerManager : AppCompatActivity() {
                     .create()
 
                 dialog.show()
-
             } else {
                 val dialog = AlertDialog.Builder(this)
                     .setTitle("Audio Tracks")
@@ -156,7 +170,6 @@ class ExoPlayerManager : AppCompatActivity() {
                     .create()
 
                 dialog.show()
-
             }
         }
 
