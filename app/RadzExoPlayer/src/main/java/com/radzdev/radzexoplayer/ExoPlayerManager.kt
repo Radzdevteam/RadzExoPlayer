@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.radzdev.radzexoplayer
 
 import android.annotation.SuppressLint
@@ -56,6 +58,11 @@ class ExoPlayerManager : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_exo_player_manager)
+
+        //  playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+        val initialResizeMode = intent.getIntExtra("initialResizeMode", AspectRatioFrameLayout.RESIZE_MODE_ZOOM)
+        playerView.resizeMode = initialResizeMode
+
 
         playerView = findViewById(R.id.player_view)
         btnSpeed = playerView.findViewById(R.id.exo_playback_speed)
@@ -146,9 +153,6 @@ class ExoPlayerManager : AppCompatActivity() {
 
                 dialog.show()
 
-                val window = dialog.window
-                window?.setLayout(600, 400)
-
             } else {
                 val dialog = AlertDialog.Builder(this)
                     .setTitle("Audio Tracks")
@@ -158,8 +162,6 @@ class ExoPlayerManager : AppCompatActivity() {
 
                 dialog.show()
 
-                val window = dialog.window
-                window?.setLayout(600, 400)
             }
         }
 
