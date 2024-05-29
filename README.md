@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 ### Step 2. Add the dependency
 ```groovy
 dependencies {
-     implementation ("com.github.Radzdevteam:RadzExoPlayer:1.5")
+     implementation ("com.github.Radzdevteam:RadzExoPlayer:tag")
 }
 
    ```
@@ -62,4 +62,10 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+   ```
+
+## Manifest
+In your `AndroidManifest`, add the following code:
+```groovy
+ <activity android:name="com.radzdev.radzexoplayer.ExoPlayerManager" />
    ```
