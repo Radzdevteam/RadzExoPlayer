@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 ### Step 2. Add the dependency
 ```groovy
 dependencies {
-     implementation ("com.github.Radzdevteam:RadzExoPlayer:2.1")
+     implementation ("com.github.Radzdevteam:RadzExoPlayer:2.0.1")
 }
 
    ```
