@@ -1,5 +1,4 @@
-# Radz ExoPlayer
-[![](https://jitpack.io/v/Radzdevteam/RadzExoPlayer.svg)](https://jitpack.io/#Radzdevteam/RadzExoPlayer)
+# Media Player
 
 Radz ExoPlayer is a media player library developed by Radz, leveraging the powerful ExoPlayer framework.
 
@@ -25,9 +24,10 @@ dependencyResolutionManagement {
    ```
 
 ### Step 2. Add the dependency
+[![](https://jitpack.io/v/Radzdevteam/MediaPlayer.svg)](https://jitpack.io/#Radzdevteam/MediaPlayer)
 ```groovy
 dependencies {
-     implementation ("com.github.Radzdevteam:RadzExoPlayer:Tag")
+     implementation 'com.github.Radzdevteam:MediaPlayer:Tag'
 }
 
    ```
