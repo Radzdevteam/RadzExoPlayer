@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 [![](https://jitpack.io/v/Radzdevteam/MediaPlayer.svg)](https://jitpack.io/#Radzdevteam/MediaPlayer)
 ```groovy
 dependencies {
-     implementation 'com.github.Radzdevteam:MediaPlayer:Tag'
+     implementation ("com.github.Radzdevteam:MediaPlayer:Tag")
 }
 
    ```
